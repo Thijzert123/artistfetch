@@ -15,10 +15,10 @@ This is the expected library structure:
 ```
 root
 -- artist 1
-   -- poster.jpg
+   -- artist_art.jpg
    -- artist 1 songs
 -- artist 2
-   -- poster.jpg
+   -- artist_art.jpg
    -- artist 2 songs
 ```
 All directories inside `root` must be an artist. For every artist, `artistfetch` will try to donwload art.
