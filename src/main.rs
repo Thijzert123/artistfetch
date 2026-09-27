@@ -41,6 +41,7 @@ fn main() -> anyhow::Result<()> {
             if force {
                 fs::remove_file(poster_path)?;
             } else {
+                println!("Art for {artist_name} already exists, skipping");
                 continue;
             }
         }
