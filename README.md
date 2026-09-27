@@ -7,7 +7,7 @@ Clone this repository and install with Cargo:
 ```
 git clone https://github.com/Thijzert123/artistfetch.git
 cd artistfetch
-cargo install
+cargo install --path .
 ```
 
 ## Usage
