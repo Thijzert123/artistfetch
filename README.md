@@ -3,7 +3,12 @@
 Simple tool to fetch artist art form TheAudioDB.
 
 ## Installation
-TODO.
+Clone this repository and install with Cargo:
+```
+git clone https://github.com/Thijzert123/artistfetch.git
+cd artistfetch
+cargo install
+```
 
 ## Usage
 This is the expected library structure:
