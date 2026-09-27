@@ -10,7 +10,7 @@ use std::{
 use anyhow::Context;
 use serde::Deserialize;
 
-const ART_FILENAME: &str = "artist_art.jpg";
+const ART_FILENAME: &str = "poster.jpg";
 
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = env::args().collect();
