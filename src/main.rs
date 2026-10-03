@@ -11,6 +11,9 @@ use anyhow::Context;
 use serde::Deserialize;
 
 const ART_FILENAME: &str = "poster.jpg";
+// If a file in the directory contains this string, donwloading the
+// art for it will be skipped (useful for manual .png files instead of .jpg).
+const ART_FILENAME_CONTAINS: &str = "poster";
 
 fn main() -> anyhow::Result<()> {
     let args: Vec<String> = env::args().collect();
@@ -37,8 +40,8 @@ fn main() -> anyhow::Result<()> {
         })?;
 
         let poster_path = artist_dir.join(ART_FILENAME);
-        if poster_path.exists() {
-            if force {
+        if check_skip(&artist_dir)? {
+            if force && poster_path.exists() {
                 fs::remove_file(poster_path)?;
             } else {
                 println!("Art for {artist_name} already exists, skipping");
@@ -56,6 +59,23 @@ fn main() -> anyhow::Result<()> {
     }
 
     Ok(())
+}
+
+fn check_skip(artist_dir: &Path) -> anyhow::Result<bool> {
+    for entry in fs::read_dir(artist_dir)? {
+        let entry = entry?;
+        let filename = entry.file_name();
+        let filename = filename.to_str().with_context(|| {
+            format!(
+                "Failed to convert directory entry name to str: {:?}",
+                filename
+            )
+        })?;
+        if filename.contains(ART_FILENAME_CONTAINS) {
+            return Ok(true);
+        }
+    }
+    Ok(false)
 }
 
 fn process_artist(artist_name: &str, artist_dir: &Path) -> anyhow::Result<AudioDBArtist> {
